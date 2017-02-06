@@ -45,14 +45,20 @@ public class Buscaminas extends javax.swing.JFrame implements ActionListener{
         //int celdaVacia = 0;
         
         
-        jPanel1.setLayout(new GridLayout(2, 2));
+        jPanel1.setLayout(new GridLayout(tablero, tablero));
         
         for (int filas = 0; filas < tablero; filas++){
             for (int columnas = 0; columnas < tablero; columnas++){
             
-                JButton btn = new JButton();
+                JButton btn= new JButton();
                 //btn.setText(""+celdaVacia);
+                
+                String nombre = new Integer(filas).toString();
+                
+                nombre += new Integer(columnas).toString();
+                btn.setActionCommand(nombre);
                 jPanel1.add(btn);
+                btn.addActionListener(this);
               
                 
                 
@@ -81,7 +87,8 @@ public class Buscaminas extends javax.swing.JFrame implements ActionListener{
     @Override
     
     public void actionPerformed(ActionEvent e) {
-      
+      JButton evento = (JButton)e.getSource();
+      System.out.println("Se ha presionado el boton "+evento.getActionCommand());
           
       }
       
