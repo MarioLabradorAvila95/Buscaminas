@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,10 +24,15 @@ public class Buscaminas extends javax.swing.JFrame implements ActionListener{
     /**
      * Creates new form Buscaminas
      */
+    
+    
     public Buscaminas() {
         initComponents();
         
         crearTablero();
+        ponerBonbas();
+        
+        //addListeners();
     }
 
 
@@ -40,17 +46,23 @@ public class Buscaminas extends javax.swing.JFrame implements ActionListener{
         //int descubierta = 1;
         //int bandera = 2;
         //casillaVistas = 0;
-        int tablero = 2;
-        //int minas = 10;
-        //int celdaVacia = 0;
+        int tablero = 4;
+        int minas = 6;
+        int filas = 0;
+        int columnas = 0;
+        int celdaVacia = 0;
         
         
         jPanel1.setLayout(new GridLayout(tablero, tablero));
         
-        for (int filas = 0; filas < tablero; filas++){
-            for (int columnas = 0; columnas < tablero; columnas++){
+        
+        for (filas = 0; filas < tablero; filas++){
+            for ( columnas = 0; columnas < tablero; columnas++){
             
+                
                 JButton btn= new JButton();
+                
+                
                 //btn.setText(""+celdaVacia);
                 
                 String nombre = new Integer(filas).toString();
@@ -59,13 +71,117 @@ public class Buscaminas extends javax.swing.JFrame implements ActionListener{
                 btn.setActionCommand(nombre);
                 jPanel1.add(btn);
                 btn.addActionListener(this);
-              
                 
+                //btn.setText(""+(int)(rnd.nextDouble()* 2 + 0));
+                 
+                
+                                                          
                 
             }
         }
+        int minasx[]= sinRepetir(minas, filas);
+        int minasy[]= sinRepetir(minas, columnas);
+        for (int i = 0; i < minas; i++){
+            JButton btn= new JButton();
+            jPanel1.add(btn);
+            btn.setText("1");
+        }
+        
     }
+    
+    
+    public void ponerBonbas(){
+        
+        
 
+        
+    }
+    
+    public int[] sinRepetir(int cantidad, int aux){
+        Random aleatorio = new Random();
+        
+        int a[]= new int[cantidad];
+        int cont = 0;
+        boolean bandera;
+        boolean cero = false;
+        
+        while(cont < cantidad){
+            int numero = (int)(aleatorio.nextDouble() * aux);
+            bandera = true;
+            
+            for (int i = 0; i < cantidad; i++) {
+                if(numero == a[i]){
+                    bandera = false;
+                }
+                if(cero&&numero==1){
+                    cero = true;
+                    numero = 0;
+                }
+                if(bandera){
+                    a[cont] = numero;
+                    cont++;
+                }
+            }
+        }
+        return a;
+    }
+    
+    
+    public void estadoDeCelda(){
+      
+        int tablero = 4;
+        //int minas = 10;
+        int celdaVacia = 0;
+        
+        
+        for (int filas = 0; filas < tablero; filas++){
+            for (int columnas = 0; columnas < tablero; columnas++){
+            
+                JButton btn= new JButton();
+                jPanel1.add(btn);
+                btn.addActionListener(this);
+                //btn.setBackground(Color.blue);
+                
+                
+                                                        
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    public void ponerBombas(){
+        
+        
+    }
+    
+    /*public void addListeners(){
+        int tablero = 4;
+        
+        JButton btn= new JButton();
+        
+        for (int filas = 0; filas < tablero; filas++){
+            for (int columnas = 0; columnas < tablero; columnas++){
+                btn.addActionListener(new ActionListener(){
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        JButton evento = (JButton)evt.getSource();
+                        JOptionPane.showMessageDialog(null, evento.getActionCommand());
+                    }
+                });
+                
+            }
+        }
+    }*/
+    
+    public void Devolver(){
+    
+        
+    }
+    
+    
     public void Principal(){
         try {
             IniciaJuego();
@@ -79,17 +195,12 @@ public class Buscaminas extends javax.swing.JFrame implements ActionListener{
     }
     
     
-    public void Devolver(){
-        
-         
-    }
-    
     @Override
     
     public void actionPerformed(ActionEvent e) {
       JButton evento = (JButton)e.getSource();
       System.out.println("Se ha presionado el boton "+evento.getActionCommand());
-          
+     
       }
       
      /**
